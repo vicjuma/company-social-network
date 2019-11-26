@@ -1,0 +1,43 @@
+{
+  "name": "company-social-network",
+  "version": "1.0.0",
+  "description": "company social network",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vicjuma/company-social-network.git"
+  },
+  "keywords": [
+    "postgres",
+    "express",
+    "jwt",
+    "bcrypt"
+  ],
+  "author": "oluoch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vicjuma/company-social-network/issues"
+  },
+  "homepage": "https://github.com/vicjuma/company-social-network#readme",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "mocha": "^6.2.2",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "cloudinary": "^1.17.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "normalize-port": "^1.0.0",
+    "pg": "^7.14.0"
+  }
+}
