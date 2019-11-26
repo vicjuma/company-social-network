@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const pool = new Pool({
   user: 'Oluoch',
@@ -14,19 +15,32 @@ pool.on('error', (err, client) => {
   process.exit(-1);
 });
 
-exports.createEmployee = () => {
-  pool
-    .connect()
-    .then((client) => client
-      .query('SELECT * FROM teamwork.employees', [1])
-      .then((res) => {
-        client.release();
-        console.log(res.rows[0]);
-      })
-      .catch((err) => {
-        client.release();
-        console.log(err.stack);
-      }));
+exports.createEmployee = (req, res) => {
+  const saltRounds = 10;
+  bcrypt.hash(req.body.password, saltRounds).then((hash) => {
+    const {
+      firstName,
+      lastName,
+      email,
+      gender,
+      jobRole,
+      department,
+      address,
+    } = req.body;
+    pool
+      .connect()
+      .then((client) => client
+        .query('INSERT INTO teamwork.employee ("firstName", "lastName", "email", "password", "gender", "jobRole", "department", "address") VALUES($1, $2, $3, $4, $5, $6, $7, $8)', [firstName, lastName, email, hash, gender, jobRole, department, address])
+        .then((result) => {
+          client.release();
+          console.log('employees created successfully');
+          res.status(200).json({ message: 'employee posted successfully', result });
+        })
+        .catch((err) => {
+          client.release();
+          console.log(err.stack);
+        }));
+  });
 };
 
 exports.signInEmployee = (req, res) => {
